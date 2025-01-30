@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import {
   getNote,
   archiveNote,
@@ -10,6 +10,7 @@ import NoteList from "../components/NoteList";
 import NoteSearchInput from "../components/NoteSearchInput";
 import { useSearchParams } from "react-router-dom";
 import PropTypes from "prop-types";
+import { LocaleConsumer } from "../contexts/LocaleContext";
 
 function HomePageWrapper() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -59,21 +60,50 @@ export class HomePage extends Component {
     );
 
     return (
-      <section>
-        <NoteSearchInput
-          onSearch={this.props.onSearch}
-          defaultKeyword={searchKeyword}
-        />
-        <NoteList
-          title="Daftar Catatan"
-          notes={filteredNotes}
-          onArchive={this.onArchiveHandler}
-          onDelete={this.onDeleteHandler}
-        />
-      </section>
+      <LocaleConsumer>
+        {({ locale }) => {
+          return (
+            <section>
+              <NoteSearchInput
+                onSearch={this.props.onSearch}
+                defaultKeyword={searchKeyword}
+              />
+              <NoteList
+                title={locale === "id" ? "Daftar Catatan" : "Note List"}
+                notes={filteredNotes}
+                onArchive={this.onArchiveHandler}
+                onDelete={this.onDeleteHandler}
+              />
+            </section>
+          );
+        }}
+      </LocaleConsumer>
     );
   }
 }
+
+// function HomePage(searchKeyword, onSearch) {
+//   const [searchParams, setSearchParams] = useSearchParams();
+//   const [notes, setnotes] = useState([]);
+//   const [keyword, setKeyword] = useState(() => {
+//     return searchParams.get("keyword" || "");
+//   });
+//   const [searchQuery, setSearchQuery] = useState("");
+
+//   useEffect(() => {
+//     getAllNotes().then(({ data }) => {
+//       setNotes(data);
+//     });
+//   }, []);
+
+//   async function deleteHandler(id) {
+//     await deleteNote(id);
+
+//     const { data } = await getAllNotes();
+//     setNotes(data);
+//   }
+//   return <section></section>;
+// }
 
 HomePage.propTypes = {
   searchKeyword: PropTypes.string,
