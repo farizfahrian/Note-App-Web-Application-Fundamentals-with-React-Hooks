@@ -10,6 +10,7 @@ import { getUserLogged, putAccessToken } from "../utils/network";
 import { LocaleProvider } from "../contexts/LocaleContext";
 import LoginPage from "../page/LoginPage";
 import RegisterPage from "../page/RegisterPage";
+import { ThemeProvider } from "../contexts/ThemeContext";
 
 function NoteApp() {
   const [authedUser, setAuthedUser] = useState(null);
@@ -21,6 +22,17 @@ function NoteApp() {
         const newLocale = prevState.locale === "id" ? "en" : "id";
         localStorage.setItem("locale", newLocale);
         return { ...prevState, locale: newLocale };
+      });
+    },
+  });
+  const [themeContext, setThemeContext] = useState({
+    theme: localStorage.getItem("theme") || "dark",
+    toggleTheme: () => {
+      setThemeContext((prevState) => {
+        const newTheme = prevState.theme === "light" ? "dark" : "light";
+        localStorage.setItem("theme", newTheme);
+        document.documentElement.setAttribute("data-theme", prevState.theme);
+        return { ...prevState, theme: newTheme };
       });
     },
   });
@@ -53,35 +65,39 @@ function NoteApp() {
   if (authedUser === null) {
     return (
       <LocaleProvider value={localeContext}>
-        <div>
-          <main>
-            <Routes>
-              <Route
-                path="/*"
-                element={<LoginPage loginSuccess={onLoginSuccess} />}
-              />
-              <Route path="/register" element={<RegisterPage />} />
-            </Routes>
-          </main>
-        </div>
+        <ThemeProvider value={themeContext}>
+          <div>
+            <main>
+              <Routes>
+                <Route
+                  path="/*"
+                  element={<LoginPage loginSuccess={onLoginSuccess} />}
+                />
+                <Route path="/register" element={<RegisterPage />} />
+              </Routes>
+            </main>
+          </div>
+        </ThemeProvider>
       </LocaleProvider>
     );
   }
 
   return (
     <LocaleProvider value={localeContext}>
-      <div>
-        <NoteHeader logout={onLogout} />
-        <main>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/add" element={<AddPage />} />
-            <Route path="/archive" element={<ArchivePage />} />
-            <Route path="/note/:id" element={<DetailPage />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </main>
-      </div>
+      <ThemeProvider value={themeContext}>
+        <div>
+          <NoteHeader logout={onLogout} />
+          <main>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/add" element={<AddPage />} />
+              <Route path="/archive" element={<ArchivePage />} />
+              <Route path="/note/:id" element={<DetailPage />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </main>
+        </div>
+      </ThemeProvider>
     </LocaleProvider>
   );
 }

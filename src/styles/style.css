@@ -1,3 +1,66 @@
+:root {
+  /* Base Colors */
+  --background-color: #202124; /* Light: #f5f5f5 */
+  --text-color: #ffffff; /* Light: #2d2d2d */
+  --secondary-text: rgb(207, 207, 207); /* Light: #5a5a5a */
+  --border-color: #636363; /* Light: #d1d1d1 */
+  --hover-bg: #303030; /* Light: #f0f0f0 */
+  --error-color: #db2748; /* Light: #c90025 */
+
+  /* Inputs */
+  --input-bg: #393737; /* Light: #ffffff */
+  --input-border: #636363; /* Light: #d1d1d1 */
+  --input-text: #e5e5e5; /* Light: #2d2d2d */
+  --placeholder-color: #aaa; /* Light: #8a8a8a */
+
+  /* Cards & Containers */
+  --card-bg: #1b1b1b; /* Light: #ffffff */
+  --card-border: #373737; /* Light: #e0e0e0 */
+  --card-secondary-bg: #262626; /* Light: #f8f8f8 */
+
+  /* Buttons */
+  --button-bg: #e5e5e5; /* Light: #2d2d2d */
+  --button-hover: #b8b8b8; /* Light: #5a5a5a */
+  --button-text: #393737; /* Light: #ffffff */
+
+  /* Spinners */
+  --spinner-base: #e5e5e5; /* Light: #2d2d2d */
+  --spinner-accent: #3d3d3d; /* Light: #e0e0e0 */
+
+  /* Special Colors */
+  --link-color: #b8b8b8; /* Light: #5a5a5a */
+  --link-hover: #e5e5e5; /* Light: #2d2d2d */
+  --floating-button-bg: #ffffff; /* Light: #2d2d2d */
+  --floating-button-shadow: rgba(0, 0, 0, 0.2); /* Light: rgba(0, 0, 0, 0.1) */
+}
+
+[data-theme="light"] {
+  --background-color: #f5f5f5;
+  --text-color: #2d2d2d;
+  --secondary-text: #5a5a5a;
+  --border-color: #d1d1d1;
+  --hover-bg: #f0f0f0;
+  --error-color: #c90025;
+  --input-bg: #ffffff;
+  --input-border: #d1d1d1;
+  --input-text: #2d2d2d;
+  --placeholder-color: #8a8a8a;
+  --card-bg: #ffffff;
+  --card-border: #e0e0e0;
+  --card-secondary-bg: #f8f8f8;
+  --button-bg: #2d2d2d;
+  --button-hover: #5a5a5a;
+  --button-text: #ffffff;
+  --spinner-base: #2d2d2d;
+  --spinner-accent: #e0e0e0;
+  --link-color: #5a5a5a;
+  --link-hover: #2d2d2d;
+  --floating-button-bg: #2d2d2d;
+  --floating-button-shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* Updated CSS with variables */
+/* Base Styles */
 * {
   padding: 0;
   margin: 0;
@@ -6,8 +69,8 @@
 
 body {
   font-family: "Inter", sans-serif;
-  background-color: #202124;
-  color: white;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 h2 {
@@ -16,39 +79,39 @@ h2 {
 }
 
 p {
-  color: rgb(207, 207, 207);
+  color: var(--secondary-text);
 }
 
 a {
   text-decoration: none;
-  color: white;
+  color: var(--text-color);
 }
 
+/* Inputs */
 input,
 textarea {
   padding: 12px 18px;
   font-family: "Inter", sans-serif;
-  background-color: #393737;
-  color: #e5e5e5;
-}
-
-input {
-  border: 1px solid #636363;
-  border-radius: 6px 6px 0 0;
-}
-
-textarea {
-  border: 1px solid #636363;
-  border-top: 0;
-  border-radius: 0 0 6px 6px;
-  resize: vertical;
-  height: 192px;
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  border: 1px solid var(--input-border);
 }
 
 input::placeholder,
 textarea::placeholder {
-  color: #aaa;
+  color: var(--placeholder-color);
   font-weight: bold;
+}
+
+input {
+  border-radius: 6px 6px 0 0;
+}
+
+textarea {
+  border-top: 0;
+  border-radius: 0 0 6px 6px;
+  resize: vertical;
+  height: 192px;
 }
 
 /* Loading Spinner */
@@ -67,8 +130,8 @@ textarea::placeholder {
 }
 
 .auth-loading__spinner {
-  border: 4px solid #e5e5e5;
-  border-top: 4px solid #3d3d3d;
+  border-color: var(--spinner-base);
+  border-top-color: var(--spinner-accent);
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -88,8 +151,8 @@ textarea::placeholder {
   max-width: 500px;
   margin: 64px auto;
   padding: 40px;
-  background: #1b1b1b;
-  border: 3px solid #373737;
+  background: var(--card-bg);
+  border: 3px solid var(--card-border);
   border-radius: 32px;
 }
 
@@ -112,10 +175,10 @@ textarea::placeholder {
 .auth-form__input {
   width: 100%;
   padding: 12px 18px;
-  background-color: #393737;
-  border: 1px solid #636363;
+  background-color: var(--input-bg);
+  border-color: var(--input-border);
+  color: var(--input-text);
   border-radius: 6px;
-  color: #e5e5e5;
   font-family: "Inter", sans-serif;
 }
 
@@ -129,8 +192,8 @@ textarea::placeholder {
 .auth-form__button {
   width: 100%;
   padding: 12px;
-  background-color: #e5e5e5;
-  color: #393737;
+  background-color: var(--button-bg);
+  color: var(--button-text);
   border: none;
   border-radius: 6px;
   font-weight: bold;
@@ -139,7 +202,7 @@ textarea::placeholder {
 }
 
 .auth-form__button:hover {
-  background-color: #b8b8b8;
+  background-color: var(--link-color);
   transition: background-color 0.3s ease-out;
 }
 
@@ -150,12 +213,12 @@ textarea::placeholder {
 }
 
 .auth-form__link a {
-  color: #b8b8b8;
+  color: var(--link-color);
   font-size: 14px;
 }
 
 .auth-form__link a:hover {
-  color: #e5e5e5;
+  color: var(--link-hover);
   text-decoration: underline;
 }
 
@@ -166,14 +229,19 @@ textarea::placeholder {
   display: block;
 }
 
+.header-actions {
+  display: flex;
+  gap: 8px;
+}
+
 .note-app__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 12px 32px;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid var(--border-color);
   gap: 12px;
-  color: #e5e5e5;
+  color: var(--text-color);
   text-align: none;
 }
 
@@ -181,7 +249,7 @@ textarea::placeholder {
   font-size: 24px;
   margin: 8px 0;
   flex: 1;
-  color: white;
+  color: var(--text-color);
   text-decoration: none;
 }
 
@@ -217,7 +285,7 @@ textarea::placeholder {
 }
 
 .note-app__not-found-body p {
-  color: rgb(224, 223, 223);
+  color: var(--secondary-text);
   margin-top: 4px;
 }
 
@@ -227,7 +295,7 @@ textarea::placeholder {
   max-width: 768px;
   border-radius: 32px;
   background: #1b1b1b;
-  border: 3px solid #373737;
+  border: 3px solid var(--border-color);
 }
 
 .note-input input,
@@ -244,7 +312,7 @@ textarea::placeholder {
 .note-input__title__char-count {
   font-size: 14px;
   text-align: right;
-  color: #e5e5e5;
+  color: var(--link-hover);
   margin-bottom: 8px;
   margin-top: 32px;
 }
@@ -259,19 +327,19 @@ textarea::placeholder {
   padding: 12px 8px;
   background-color: transparent;
   font-family: "Inter", sans-serif;
-  border: 1px solid #393737;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
   font-weight: bold;
   cursor: pointer;
   margin-top: 32px;
-  background: #e5e5e5;
-  color: #393737;
+  background: var(--button-bg);
+  color: var(--button-text);
 }
 
 .note-input button:hover {
-  background: #b8b8b8;
-  color: #363636;
-  transition: background 0.3s ease-out, color 0.3s ease-out;
+  background: var(--link-color);
+  color: var(--button-text);
+  transition: backgroun d 0.3s ease-out, color 0.3s ease-out;
 }
 
 .note-search-input {
@@ -280,16 +348,16 @@ textarea::placeholder {
   max-width: 520px;
   margin: 40px auto;
   padding: 12px;
-  background-color: #1b1b1b;
+  background-color: var(--card-bg);
   font-family: "Inter", sans-serif;
-  border: 2px solid #373737;
+  border: 2px solid var(--border-color);
   border-radius: 8px;
   font-weight: bold;
 }
 
 .note-search-input :focus {
-  background: #373737;
-  border-color: #363636;
+  background: var(--hover-bg);
+  border-color: var(--card-border);
   box-shadow: 0 0 0 1px #363636;
   transition: background 0.3s ease-out, border-color 0.3s ease-out,
     box-shadow 0.3s ease-out;
@@ -306,8 +374,8 @@ textarea::placeholder {
 
 .notes-list__container {
   padding: 40px;
-  background: #1b1b1b;
-  border: 3px solid #373737;
+  background: var(--card-bg);
+  border: 3px solid var(--card-border);
   border-radius: 32px;
   margin: 60px auto;
   max-width: 1920px;
@@ -319,7 +387,7 @@ textarea::placeholder {
 
 .notes-list__empty-message {
   text-align: center;
-  color: #e5e5e5;
+  color: var(--text-color);
   width: 100%;
   margin: 80px 0;
   font-weight: 700;
@@ -327,8 +395,8 @@ textarea::placeholder {
 }
 
 .note-item {
-  border: 1px solid #393737;
-  background: #262626;
+  border: 1px solid var(--card-border);
+  background: var(--background-color);
   border-radius: 15px;
   overflow: hidden;
   display: flex;
@@ -336,12 +404,11 @@ textarea::placeholder {
   justify-content: space-between;
   padding: 24px;
   text-decoration: none;
-  color: #e5e5e5;
   transition: all 0.2s ease-in-out;
 }
 
 .note-item:hover {
-  background: #303030;
+  background: var(--card-border);
   scale: 0.99;
 }
 
@@ -352,23 +419,23 @@ textarea::placeholder {
   margin-bottom: 4px;
   font-size: 20px;
   font-weight: 500;
-  color: #e5e5e5;
+  color: var(--text-color);
 }
 
 .note-item__date {
   font-size: 12px;
   font-weight: 500;
   margin-bottom: 12px;
-  color: #a1a1a1;
+  color: var(--secondary-text);
 }
 
 .note-item__body {
   font-size: 14px;
-  color: #e9e9e9;
+  color: var(--text-color);
 }
 
 .note-item__body a {
-  color: #e9e9e9;
+  color: var(--text-color);
   text-decoration: underline;
 }
 
@@ -382,7 +449,7 @@ textarea::placeholder {
   padding: 0 32px;
   font-size: 20px;
   font-weight: 500;
-  color: #e5e5e5;
+  color: var(--text-color);
 }
 
 .note-detail-item__title {
@@ -390,19 +457,19 @@ textarea::placeholder {
   line-height: 100%;
   font-size: 56px;
   font-weight: 500;
-  color: #e5e5e5;
+  color: var(--text-color);
 }
 
 .note-detail-item__date {
   font-size: 12px;
   font-weight: 500;
   margin-bottom: 12px;
-  color: #a1a1a1;
+  color: var(--secondary-text);
 }
 
 .note-detail-item__body {
   font-size: 14px;
-  color: #e9e9e9;
+  color: var(--text-color);
 }
 
 .note-item__action {
@@ -418,7 +485,7 @@ textarea::placeholder {
   width: 100%;
   background-color: transparent;
   border-radius: 6px;
-  border: 1px solid #262626;
+  border: 1px solid var(--input-bg);
   padding: 8px 0;
   font-family: "Inter", sans-serif;
   font-weight: bold;
@@ -427,22 +494,21 @@ textarea::placeholder {
 
 .note-item__delete-button {
   color: #db2748;
-  background: #262626;
 }
 
 .note-item__archive-button {
-  color: #262626;
-  background: #e5e5e5;
+  color: var(--button-text);
+  background: var(--button-bg);
 }
 
 .note-item__archive-button:hover {
   color: #363636;
-  background: #b8b8b8;
+  background: var(--link-color);
 }
 
 .note-item__not-found-button {
-  color: #262626;
-  background: #e5e5e5;
+  color: var(--button-text);
+  background: var(--button-bg);
   width: max-content;
   padding: 12px 16px;
   margin-top: 12px;
@@ -450,8 +516,8 @@ textarea::placeholder {
 }
 
 .note-item__not-found-button:hover {
-  color: #363636;
-  background: #b8b8b8;
+  color: var(--button-text);
+  background: var(--button-hover);
 }
 
 .note-item__delete-button:hover {
