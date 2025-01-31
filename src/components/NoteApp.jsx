@@ -29,9 +29,9 @@ function NoteApp() {
     theme: localStorage.getItem("theme") || "dark",
     toggleTheme: () => {
       setThemeContext((prevState) => {
-        const newTheme = prevState.theme === "light" ? "dark" : "light";
+        const newTheme = prevState.theme === "dark" ? "light" : "dark";
         localStorage.setItem("theme", newTheme);
-        document.documentElement.setAttribute("data-theme", prevState.theme);
+        document.documentElement.setAttribute("data-theme", newTheme);
         return { ...prevState, theme: newTheme };
       });
     },
@@ -40,8 +40,10 @@ function NoteApp() {
   useEffect(() => {
     async function fetchUserLogged() {
       const { data } = await getUserLogged();
+      const savedTheme = localStorage.getItem("theme") || "dark";
       setAuthedUser(data);
       setInitializing(false);
+      document.documentElement.setAttribute("data-theme", savedTheme);
     }
 
     fetchUserLogged();

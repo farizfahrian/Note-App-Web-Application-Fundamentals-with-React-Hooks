@@ -119,19 +119,19 @@ textarea {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: fixed;
   gap: 12px;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.4);
   z-index: 9999;
 }
 
 .auth-loading__spinner {
-  border-color: var(--spinner-base);
-  border-top-color: var(--spinner-accent);
+  border: 4px solid var(--spinner-accent);
+  border-top: 4px solid var(--border-color);
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -168,7 +168,7 @@ textarea {
 .auth-form__label {
   display: block;
   margin-bottom: 8px;
-  color: rgb(207, 207, 207);
+  color: var(--secondary-text);
   font-size: 14px;
 }
 
@@ -184,8 +184,8 @@ textarea {
 
 .auth-form__input:focus {
   outline: none;
-  border-color: #808080;
-  background-color: #454545;
+  border-color: var(--border-color);
+  background-color: var(--hover-bg);
   transition: all 0.3s ease-out;
 }
 
@@ -294,7 +294,7 @@ textarea {
   padding: 40px;
   max-width: 768px;
   border-radius: 32px;
-  background: #1b1b1b;
+  background: var(--background-color);
   border: 3px solid var(--border-color);
 }
 
@@ -485,7 +485,7 @@ textarea {
   width: 100%;
   background-color: transparent;
   border-radius: 6px;
-  border: 1px solid var(--input-bg);
+  border: 0px solid var(--input-bg);
   padding: 8px 0;
   font-family: "Inter", sans-serif;
   font-weight: bold;
@@ -493,7 +493,7 @@ textarea {
 }
 
 .note-item__delete-button {
-  color: #db2748;
+  color: var(--error-color);
 }
 
 .note-item__archive-button {
@@ -502,7 +502,7 @@ textarea {
 }
 
 .note-item__archive-button:hover {
-  color: #363636;
+  color: var(--button-text);
   background: var(--link-color);
 }
 
@@ -521,8 +521,8 @@ textarea {
 }
 
 .note-item__delete-button:hover {
-  color: #c90025;
-  background: #363636;
+  background: var(--error-color);
+  color: #ffffff;
 }
 
 .note-item button:hover {
