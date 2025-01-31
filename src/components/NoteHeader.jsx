@@ -24,10 +24,12 @@ function NoteHeader({ logout }) {
               </svg>
             </Link>
             <Link to="/archive">Arsip</Link>
-            <button onClick={toggleLocale}>
+            <button className="auth-form__button" onClick={toggleLocale}>
               {locale === "id" ? "en" : "id"}
             </button>
-            <button onClick={logout}>Logout</button>
+            <button className="auth-form__button" onClick={logout}>
+              Logout
+            </button>
           </nav>
         );
       }}

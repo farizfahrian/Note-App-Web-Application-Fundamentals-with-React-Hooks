@@ -51,6 +51,121 @@ textarea::placeholder {
   font-weight: bold;
 }
 
+/* Loading Spinner */
+.auth-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  gap: 12px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+}
+
+.auth-loading__spinner {
+  border: 4px solid #e5e5e5;
+  border-top: 4px solid #3d3d3d;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.auth-container {
+  max-width: 500px;
+  margin: 64px auto;
+  padding: 40px;
+  background: #1b1b1b;
+  border: 3px solid #373737;
+  border-radius: 32px;
+}
+
+.auth-title {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.auth-form__group {
+  margin-bottom: 24px;
+}
+
+.auth-form__label {
+  display: block;
+  margin-bottom: 8px;
+  color: rgb(207, 207, 207);
+  font-size: 14px;
+}
+
+.auth-form__input {
+  width: 100%;
+  padding: 12px 18px;
+  background-color: #393737;
+  border: 1px solid #636363;
+  border-radius: 6px;
+  color: #e5e5e5;
+  font-family: "Inter", sans-serif;
+}
+
+.auth-form__input:focus {
+  outline: none;
+  border-color: #808080;
+  background-color: #454545;
+  transition: all 0.3s ease-out;
+}
+
+.auth-form__button {
+  width: 100%;
+  padding: 12px;
+  background-color: #e5e5e5;
+  color: #393737;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 24px;
+}
+
+.auth-form__button:hover {
+  background-color: #b8b8b8;
+  transition: background-color 0.3s ease-out;
+}
+
+.auth-form__link {
+  text-align: center;
+  margin-top: 24px;
+  display: block;
+}
+
+.auth-form__link a {
+  color: #b8b8b8;
+  font-size: 14px;
+}
+
+.auth-form__link a:hover {
+  color: #e5e5e5;
+  text-decoration: underline;
+}
+
+.auth-form__error {
+  color: #db2748;
+  font-size: 12px;
+  margin-top: 8px;
+  display: block;
+}
+
 .note-app__header {
   display: flex;
   align-items: center;
@@ -361,6 +476,13 @@ textarea::placeholder {
   }
   .notes-list__container {
     margin: 20px;
+  }
+  .auth-container {
+    margin: 32px 20px;
+    padding: 32px;
+  }
+  .auth-title {
+    font-size: 28px;
   }
 }
 

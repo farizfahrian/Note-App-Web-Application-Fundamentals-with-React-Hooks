@@ -1,12 +1,16 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useContext } from "react";
+import LocaleContext from "../contexts/LocaleContext";
 
 function NoteSearchInput({ onSearch, defaultKeyword }) {
+  const { locale } = useContext(LocaleContext);
   return (
     <input
       type="search"
       onChange={(event) => onSearch(event.target.value)}
-      placeholder="Cari judul catatan"
+      placeholder={
+        locale === "id" ? "Cari judul catatan" : "Search by note title"
+      }
       className="note-search-input"
       defaultValue={defaultKeyword}
     />

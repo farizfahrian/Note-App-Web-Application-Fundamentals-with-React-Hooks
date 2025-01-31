@@ -6,66 +6,10 @@ import NotFound from "./NotFound";
 import DetailPage from "../page/DetailPage";
 import ArchivePage from "../page/ArchivePage";
 import { Route, Routes } from "react-router-dom";
-import {
-  archiveNote,
-  getAllNotes,
-  getNote,
-  unarchiveNote,
-} from "../utils/local-data";
-import { deleteNote, getUserLogged, putAccessToken } from "../utils/network";
+import { getUserLogged, putAccessToken } from "../utils/network";
 import { LocaleProvider } from "../contexts/LocaleContext";
 import LoginPage from "../page/LoginPage";
 import RegisterPage from "../page/RegisterPage";
-
-// class NoteApp extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       notes: getAllNotes(),
-//       searchQuery: "",
-//     };
-
-//     this.onSearchHandler = this.onSearchHandler.bind(this);
-//   }
-
-//   onArchiveHandler = (id) => {
-//     const note = getNote(id);
-//     note.archived ? unarchiveNote(id) : archiveNote(id);
-//     const updatedNotes = getAllNotes();
-//     this.setState({ notes: updatedNotes });
-//   };
-
-//   onDeleteHandler = (id) => {
-//     deleteNote(id);
-
-//     this.setState(() => {
-//       return {
-//         notes: getAllNotes(),
-//       };
-//     });
-//   };
-
-//   onSearchHandler(searchQuery) {
-//     this.setState({ searchQuery });
-//   }
-
-//   render() {
-//     return (
-//       <div>
-//         <NoteHeader onSearch={this.onSearchHandler} />
-//         <main>
-//           <Routes>
-//             <Route path="/" element={<HomePage />} />
-//             <Route path="/add" element={<AddPage />} />
-//             <Route path="/archive" element={<ArchivePage />} />
-//             <Route path="/note/:id" element={<DetailPage />} />
-//             <Route path="*" element={<NotFound />} />
-//           </Routes>
-//         </main>
-//       </div>
-//     );
-//   }
-// }
 
 function NoteApp() {
   const [authedUser, setAuthedUser] = useState(null);
@@ -116,7 +60,7 @@ function NoteApp() {
                 path="/*"
                 element={<LoginPage loginSuccess={onLoginSuccess} />}
               />
-              <Route path="/register" element={<HomePage />} />
+              <Route path="/register" element={<RegisterPage />} />
             </Routes>
           </main>
         </div>

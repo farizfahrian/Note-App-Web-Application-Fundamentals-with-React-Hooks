@@ -1,10 +1,12 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useContext } from "react";
+import LocaleContext from "../contexts/LocaleContext";
 
 function DeleteButton({ id, onDelete }) {
+  const { locale } = useContext(LocaleContext);
   return (
     <button className="note-item__delete-button" onClick={() => onDelete(id)}>
-      Hapus
+      {locale === "id" ? "Hapus" : "Delete"}
     </button>
   );
 }

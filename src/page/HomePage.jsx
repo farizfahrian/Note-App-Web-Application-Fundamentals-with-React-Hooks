@@ -1,113 +1,77 @@
-import React, { Component, useEffect, useState } from "react";
-import {
-  getNote,
-  archiveNote,
-  unarchiveNote,
-  deleteNote,
-  getActiveNotes,
-} from "../utils/local-data";
+import React, { useEffect, useState } from "react";
+import { archiveNote, deleteNote, getActiveNotes } from "../utils/network";
 import NoteList from "../components/NoteList";
 import NoteSearchInput from "../components/NoteSearchInput";
 import { useSearchParams } from "react-router-dom";
 import PropTypes from "prop-types";
-import { LocaleConsumer } from "../contexts/LocaleContext";
+import LocaleContext from "../contexts/LocaleContext";
 
-function HomePageWrapper() {
+function HomePage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const title = searchParams.get("title") || "";
+  const [notes, setNotes] = useState([]);
+  const [searchKeyword, setSearchKeyword] = useState(() => {
+    return searchParams.get("title") || "";
+  });
+  const [initializing, setInitializing] = useState(true);
+  const { locale } = React.useContext(LocaleContext);
+
+  useEffect(() => {
+    getActiveNotes()
+      .then(({ data }) => {
+        setNotes(data);
+      })
+      .catch(() => {
+        setNotes(null);
+      })
+      .finally(() => {
+        setInitializing(false);
+      });
+  }, []);
+
+  const archiveHandler = async (id) => {
+    await archiveNote(id);
+    const { data } = await getActiveNotes();
+    setNotes(data);
+  };
+
+  const deleteHandler = async (id) => {
+    await deleteNote(id);
+    const { data } = await getActiveNotes();
+    setNotes(data);
+  };
 
   const handleSearch = (keyword) => {
     setSearchParams({ title: keyword });
+    setSearchKeyword(keyword);
   };
 
-  return <HomePage searchKeyword={title} onSearch={handleSearch} />;
-}
+  const filteredNotes = notes.filter((note) =>
+    note.title.toLowerCase().includes(searchKeyword.toLowerCase())
+  );
 
-export class HomePage extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      notes: getActiveNotes(),
-    };
-  }
-
-  onArchiveHandler = (id) => {
-    const note = getNote(id);
-    note.archived ? unarchiveNote(id) : archiveNote(id);
-
-    this.setState(() => {
-      return {
-        notes: getActiveNotes(),
-      };
-    });
-  };
-
-  onDeleteHandler = (id) => {
-    deleteNote(id);
-
-    this.setState(() => {
-      return {
-        notes: getActiveNotes(),
-      };
-    });
-  };
-
-  render() {
-    const { searchKeyword } = this.props;
-    const filteredNotes = this.state.notes.filter((note) =>
-      note.title.toLowerCase().includes(searchKeyword.toLowerCase())
-    );
-
+  if (initializing) {
     return (
-      <LocaleConsumer>
-        {({ locale }) => {
-          return (
-            <section>
-              <NoteSearchInput
-                onSearch={this.props.onSearch}
-                defaultKeyword={searchKeyword}
-              />
-              <NoteList
-                title={locale === "id" ? "Daftar Catatan" : "Note List"}
-                notes={filteredNotes}
-                onArchive={this.onArchiveHandler}
-                onDelete={this.onDeleteHandler}
-              />
-            </section>
-          );
-        }}
-      </LocaleConsumer>
+      <div className="auth-loading">
+        <div className="auth-loading__spinner"></div>
+        <p>Loading ...</p>
+      </div>
     );
   }
+  return (
+    <section>
+      <NoteSearchInput onSearch={handleSearch} defaultKeyword={searchKeyword} />
+      <NoteList
+        title={locale === "id" ? "Daftar Catatan" : "Note List"}
+        notes={filteredNotes}
+        onArchive={archiveHandler}
+        onDelete={deleteHandler}
+      />
+    </section>
+  );
 }
-
-// function HomePage(searchKeyword, onSearch) {
-//   const [searchParams, setSearchParams] = useSearchParams();
-//   const [notes, setnotes] = useState([]);
-//   const [keyword, setKeyword] = useState(() => {
-//     return searchParams.get("keyword" || "");
-//   });
-//   const [searchQuery, setSearchQuery] = useState("");
-
-//   useEffect(() => {
-//     getAllNotes().then(({ data }) => {
-//       setNotes(data);
-//     });
-//   }, []);
-
-//   async function deleteHandler(id) {
-//     await deleteNote(id);
-
-//     const { data } = await getAllNotes();
-//     setNotes(data);
-//   }
-//   return <section></section>;
-// }
 
 HomePage.propTypes = {
   searchKeyword: PropTypes.string,
-  onSearch: PropTypes.func.isRequired,
 };
 
-export default HomePageWrapper;
+export default HomePage;

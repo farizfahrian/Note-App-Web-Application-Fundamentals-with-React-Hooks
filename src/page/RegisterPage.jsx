@@ -1,26 +1,29 @@
-import React from "react";
-import { login } from "../utils/network";
-import LoginInput from "../components/LoginInput";
-import PropTypes from "prop-types";
+import React, { useContext } from "react";
+import { register } from "../utils/network";
+import RegisterInput from "../components/RegisterInput";
+import { useNavigate } from "react-router-dom";
+import LocaleContext from "../contexts/LocaleContext";
 
-function RegisterPage({ loginSuccess }) {
-  async function onLogin({ email, password }) {
-    const { error, data } = await login({ email, password });
+function RegisterPage() {
+  const navigate = useNavigate();
+  const { locale } = useContext(LocaleContext);
+
+  async function onRegister({ name, email, password }) {
+    const { error } = await register({ name, email, password });
 
     if (!error) {
-      loginSuccess(data);
+      navigate("/");
     }
   }
+
   return (
-    <section>
-      <h2>Silakan Login</h2>
-      <LoginInput login={onLogin} />
+    <section className="auth-container">
+      <h2 className="auth-title">
+        {locale === "id" ? "Dafarkan Akun Anda" : "Register Your Account"}
+      </h2>
+      <RegisterInput register={onRegister} />
     </section>
   );
 }
-
-RegisterPage.propTypes = {
-  loginSuccess: PropTypes.func.isRequired,
-};
 
 export default RegisterPage;

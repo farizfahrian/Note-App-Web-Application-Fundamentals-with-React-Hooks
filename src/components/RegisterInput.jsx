@@ -3,17 +3,32 @@ import useInput from "../hooks/useInput";
 import PropTypes from "prop-types";
 import LocaleContext from "../contexts/LocaleContext";
 
-function LoginInput({ login }) {
+function RegisterInput({ register }) {
+  const [name, onNameChange] = useInput("");
   const [email, onEmailChange] = useInput("");
   const [password, onPasswordChange] = useInput("");
   const { locale } = useContext(LocaleContext);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    login({ email, password });
+    register({ name, email, password });
   };
+
   return (
     <form onSubmit={submitHandler} className="auth-form">
+      <div className="auth-form__group">
+        <label className="auth-form__label" htmlFor="name">
+          {locale === "id" ? "Nama" : "Name"}
+        </label>
+        <input
+          className="auth-form__input"
+          type="text"
+          id="name"
+          value={name}
+          onChange={onNameChange}
+        />
+      </div>
+
       <div className="auth-form__group">
         <label className="auth-form__label" htmlFor="email">
           Email
@@ -35,29 +50,29 @@ function LoginInput({ login }) {
           className="auth-form__input"
           type="password"
           id="password"
+          autoComplete="on"
           value={password}
           onChange={onPasswordChange}
         />
       </div>
 
       <button type="submit" className="auth-form__button">
-        Login
+        {locale === "id" ? "Daftar" : "Register"}
       </button>
 
       <div className="auth-form__link">
-        <a href="/register">
-          {" "}
+        <a href="/login">
           {locale === "id"
-            ? "Tidak punya akun? Daftar disini"
-            : "Don't have an account? Register here"}
+            ? "Sudah punya akun? Login disini"
+            : "Already have an account? Login here"}
         </a>
       </div>
     </form>
   );
 }
 
-LoginInput.propTypes = {
-  login: PropTypes.func.isRequired,
+RegisterInput.propTypes = {
+  register: PropTypes.func.isRequired,
 };
 
-export default LoginInput;
+export default RegisterInput;

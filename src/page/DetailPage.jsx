@@ -1,38 +1,42 @@
-import React, { Component } from "react";
-import { getNote } from "../utils/local-data";
+import React, { Component, useEffect, useState } from "react";
+import { getNote } from "../utils/network";
 import { useParams } from "react-router-dom";
 import NoteDetail from "../components/NoteDetail";
-import PropTypes from "prop-types";
 
-function DetailPageWrapper() {
+function DetailPage() {
   const { id } = useParams();
-  return <DetailPage id={id} />;
-}
+  const [note, setNote] = useState(null);
+  const [initializing, setInitializing] = useState(true);
 
-export class DetailPage extends Component {
-  constructor(props) {
-    super(props);
+  useEffect(() => {
+    getNote(id)
+      .then(({ data }) => {
+        setNote(data);
+      })
+      .catch(() => {
+        setNote(null);
+      })
+      .finally(() => {
+        setInitializing(false);
+      });
+  }, [id]);
 
-    this.state = {
-      note: getNote(props.id),
-    };
-  }
-
-  render() {
-    if (this.state.movie === null) {
-      return <p>Note tidak ditemukan</p>;
-    }
-
+  if (initializing) {
     return (
-      <section>
-        <NoteDetail {...this.state.note} />
-      </section>
+      <div className="auth-loading">
+        <div className="auth-loading__spinner"></div>
+        <p>Loading ...</p>
+      </div>
     );
   }
+  if (note === null) {
+    return <p>Note tidak ditemukan</p>;
+  }
+  return (
+    <section>
+      <NoteDetail {...note} />
+    </section>
+  );
 }
 
-DetailPage.propTypes = {
-  id: PropTypes.string.isRequired,
-};
-
-export default DetailPageWrapper;
+export default DetailPage;
