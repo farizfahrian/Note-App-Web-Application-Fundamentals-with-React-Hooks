@@ -91,9 +91,12 @@ function NoteApp() {
           <NoteHeader logout={onLogout} />
           <main>
             <Routes>
-              <Route path="/" element={<HomePage />} />
+              <Route path="/" element={<HomePage name={authedUser.name} />} />
               <Route path="/add" element={<AddPage />} />
-              <Route path="/archive" element={<ArchivePage />} />
+              <Route
+                path="/archive"
+                element={<ArchivePage name={authedUser.name} />}
+              />
               <Route path="/note/:id" element={<DetailPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

@@ -29,10 +29,7 @@ function NoteHeader({ logout }) {
                   </Link>
                   <div className="header-actions">
                     <Link to="/archive">
-                      <button
-                        className="note-item__not-found-button"
-                        onClick={toggleLocale}
-                      >
+                      <button className="note-item__not-found-button">
                         {locale === "id" ? "Terarsip" : "Archived"}
                       </button>
                     </Link>

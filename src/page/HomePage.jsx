@@ -6,7 +6,7 @@ import { useSearchParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import LocaleContext from "../contexts/LocaleContext";
 
-function HomePage() {
+function HomePage({ name }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [notes, setNotes] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState(() => {
@@ -61,7 +61,11 @@ function HomePage() {
     <section>
       <NoteSearchInput onSearch={handleSearch} defaultKeyword={searchKeyword} />
       <NoteList
-        title={locale === "id" ? "Daftar Catatan" : "Note List"}
+        title={
+          locale === "id"
+            ? `Halo ${name}, Ini Daftar Catatanmu`
+            : `Hello ${name}, This is Your Note List`
+        }
         notes={filteredNotes}
         onArchive={archiveHandler}
         onDelete={deleteHandler}
@@ -71,7 +75,7 @@ function HomePage() {
 }
 
 HomePage.propTypes = {
-  searchKeyword: PropTypes.string,
+  name: PropTypes.string.isRequired,
 };
 
 export default HomePage;

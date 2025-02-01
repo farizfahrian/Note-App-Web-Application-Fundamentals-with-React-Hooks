@@ -6,7 +6,7 @@ import { useSearchParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import LocaleContext from "../contexts/LocaleContext";
 
-function ArchivePage() {
+function ArchivePage({ name }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [notes, setNotes] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState(() => {
@@ -62,7 +62,11 @@ function ArchivePage() {
     <section>
       <NoteSearchInput onSearch={handleSearch} defaultKeyword={searchKeyword} />
       <NoteList
-        title={locale === "id" ? "Catatan Arsip" : "Archive Notes"}
+        title={
+          locale === "id"
+            ? `Halo ${name}, Ini Catatan Arsipmu`
+            : `Hello ${name}, This is Your Archive Notes`
+        }
         notes={filteredNotes}
         onArchive={archiveHandler}
         onDelete={deleteHandler}
@@ -72,7 +76,7 @@ function ArchivePage() {
 }
 
 ArchivePage.propTypes = {
-  searchKeyword: PropTypes.string,
+  name: PropTypes.string.isRequired,
 };
 
 export default ArchivePage;
